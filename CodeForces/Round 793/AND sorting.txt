@@ -1,0 +1,124 @@
+#include <bits/stdc++.h>
+#define endl "\n"
+#define lli long long int
+#define ll long long
+#define lld long double
+#define ull unsigned long long
+#define sl long
+#define set_bit __builtin_popcountll // check no of 1 set bit (x) 
+#define bp_i  __builtin_popcount // used for integer (x)
+#define mp  make_pair
+#define pb push_back
+#define popb pop_back
+#define eb emplace_back
+
+using namespace std;
+
+
+#ifndef ONLINE_JUDGE
+#define debug(x) cerr << #x <<" "; _print(x); cerr << endl;
+#else
+#define debug(x)
+#endif
+
+
+void _print(ll t) {cerr << t;}
+void _print(int t) {cerr << t;}
+void _print(string t) {cerr << t;}
+void _print(char t) {cerr << t;}
+void _print(lld t) {cerr << t;}
+void _print(double t) {cerr << t;}
+void _print(ull t) {cerr << t;}
+void _print(long t) {cerr << t;}
+
+template <class T, class V> void _print(pair <T, V> p);
+template <class T> void _print(vector <T> v);
+template <class T> void _print(set <T> v);
+template <class T, class V> void _print(map <T, V> v);
+template <class T> void _print(unordered_set <T> v);
+template <class T , class V> void _print(unordered_map <T, V> v);
+template <class T> void _print(multiset <T> v);
+template <class T> void _print(priority_queue <T>v);
+template <class T> void _print(priority_queue <T, vector<T>, greater<T>>);
+
+
+template <class T, class V> void _print(pair <T, V> p) {cerr << "{"; _print(p.first); cerr << ","; _print(p.second); cerr << "}";}
+template <class T> void _print(vector <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
+template <class T> void _print(set <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
+template <class T> void _print(multiset <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
+template <class T> void _print(unordered_set <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
+template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i : v) {_print(i); cerr << " ";} cerr << "]";}
+template <class T, class V> void _print(unordered_map <T, V> v) {cerr << "[ "; for (auto i : v) {_print(i); cerr << " ";} cerr << "]";}
+
+void predefined()
+{
+  ios_base::sync_with_stdio(false); cin.tie(NULL);
+#ifndef ONLINE_JUDGE
+  freopen("error.txt", "w", stderr);
+  freopen("Input.txt", "r", stdin);
+  freopen("output.txt", "w", stdout);
+#endif
+}
+
+/*
+
+to move all the unplaced elements in their position we need to swipe them 
+so ans will and of all these elements not in correct position
+
+*/
+
+void solve()
+{
+  int n;
+  cin >> n;
+
+  vector<int>arr(n) , temp(n);
+
+  for (int i = 0; i < n; i++)
+  {
+    cin >> arr[i];
+    temp[i] = arr[i];
+  }
+
+  sort(temp.begin(), temp.end());
+
+  int i = n - 1;
+  for (; i >= 0; i--)
+    if (temp[i] != arr[i])
+      break;
+  int idx = i--;
+  int ans;
+
+  debug(i);
+
+  if (i < 0)
+    ans = 0;
+
+  else
+    ans = arr[idx];
+
+
+  while (i >= 0)
+  {
+    if (arr[i] != temp[i])
+      ans &= arr[i];
+
+    i--;
+  }
+
+  cout << ans << endl;
+}
+
+
+
+int main()
+{
+  predefined();
+
+  long t;
+
+  cin >> t;
+
+  while (t--)
+    solve();
+}
