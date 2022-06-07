@@ -1,0 +1,137 @@
+#include <bits/stdc++.h>
+#define endl "\n"
+#define lli long long int
+#define ll long long
+#define lld long double
+#define ull unsigned long long
+#define set_bit __builtin_popcountll // check no of 1 set bit (x) 
+#define bp_i  __builtin_popcount // used for integer (x)
+#define mp make_pair
+#define edge(x,y) cin>>x>>y;adj[x].push_back(y);adj[y].push_back(x);
+#define dedge(x,y) cin>>x>>y;adj[x].push_back(y);
+#define pq_dec(i) priority_queue<i,vector<i>, greater<i>>
+using namespace std;
+
+
+#ifndef ONLINE_JUDGE
+#define debug(x) cerr << #x <<" "; _print(x); cerr << endl;
+#else
+#define debug(x)
+#endif
+
+
+void _print(ll t) {cerr << t;}
+void _print(int t) {cerr << t;}
+void _print(string t) {cerr << t;}
+void _print(char t) {cerr << t;}
+void _print(lld t) {cerr << t;}
+void _print(double t) {cerr << t;}
+void _print(ull t) {cerr << t;}
+void _print(long t) {cerr << t;}
+
+
+template <class T, class V> void _print(pair <T, V> p);
+template <class T> void _print(vector <T> v);
+template <class T> void _print(set <T> v);
+template <class T, class V> void _print(map <T, V> v);
+template <class T> void _print(unordered_set <T> v);
+template <class T , class V> void _print(unordered_map <T, V> v);
+template <class T> void _print(multiset <T> v);
+template <class T> void _print(priority_queue <T>v);
+template <class T> void _print(priority_queue <T, vector<T>, greater<T>>);
+
+
+template <class T, class V> void _print(pair <T, V> p) {cerr << "{"; _print(p.first); cerr << ","; _print(p.second); cerr << "}";}
+template <class T> void _print(vector <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
+template <class T> void _print(set <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
+template <class T> void _print(multiset <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
+template <class T> void _print(unordered_set <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
+template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i : v) {_print(i); cerr << " ";} cerr << "]";}
+template <class T, class V> void _print(unordered_map <T, V> v) {cerr << "[ "; for (auto i : v) {_print(i); cerr << " ";} cerr << "]";}
+template <class T> void _print(priority_queue <T> c) {cerr << "[ "; priority_queue <T> v = c; while (v.size()) {cerr << v.top() << " "; v.pop();} cerr << "]";}
+template <class T> void _print(priority_queue <T, vector<T>, greater<T>> c) {cerr << "[ "; priority_queue <T, vector<T> , greater<T>> v = c; while (v.size()) {cerr << v.top() << " "; v.pop();} cerr << "]";}
+
+void predefined()
+{
+  ios_base::sync_with_stdio(false); cin.tie(NULL);
+#ifndef ONLINE_JUDGE
+  freopen("error.txt", "w", stderr);
+  freopen("Input.txt", "r", stdin);
+  freopen("output.txt", "w", stdout);
+#endif
+}
+
+/*
+   take 3 no 
+   
+   and divide heigh equally among them no add remainder height in b
+   
+   now if r== 0
+   
+   therfore 
+   
+   a = b = c
+   reduce c  by one and increase a by one 
+   
+   if r == 1
+   terefore only a == c
+   b - a == a
+   
+  increase b by one and redcuce c by one
+  
+  
+  if r == 2
+  
+  increase a by one and decrease c by one
+
+*/
+
+
+void solve()
+{
+  ll n , a, b , c , r;
+  cin >> n;
+
+  a = b = c = n / 3;
+
+  r = n % 3;
+
+  b += r;
+
+  if (b == c)
+  {
+    b++;
+    c--;
+  }
+
+  else if ( a == c && b - 1 == a)
+  {
+    b++;
+    c--;
+  }
+
+  else if (a == c)
+  {
+    a++;
+    c--;
+  }
+
+  cout << a << " " << b << " " << c << endl;
+
+
+}
+
+
+
+
+int main()
+{
+  predefined();
+
+
+  lli t = 0;
+  cin >> t;
+
+  while (t--)
+    solve();
+}
