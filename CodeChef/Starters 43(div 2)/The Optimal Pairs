@@ -74,7 +74,7 @@ void predefined()
   due to this hcf (i,n-i) -> i if(i < n-i)
               lcm (i,n-i) -> n-i if(n-i > i)
               hcf + lcm = n
-              
+  one more base case i == n will not count
   therofore ans will be to get all factors :-
               
 */
