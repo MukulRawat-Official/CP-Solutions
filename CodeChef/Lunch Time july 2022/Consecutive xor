@@ -1,0 +1,61 @@
+/*
+  it can se seen than from two continious no in b 
+  
+  11 , 00 we can make any letter we want for neighbours thus we can spread 
+  our answer every where in b from consecutive part
+  
+  eg : 1 1 0 -> 1 1 1 ->  0 0 1  (bit filpped)
+  
+  thus we need only single one 1 in b and consecutive part
+
+*/
+
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+void yes() {
+    cout<<"YES"<<endl;
+    return;
+}
+
+void no(){
+    cout<<"NO"<<endl;
+    return;
+}
+int main() {
+    int  t;
+    cin>>t;
+    
+    while(t--)
+    {
+        int n; cin>>n;
+        string a , b; cin>>a>>b;
+        
+        if(a == b){
+            yes(); continue;
+        }
+        
+        int x = 0;
+        for(auto& y : a)if(y&1){ x = 1; break;}
+        
+        if(!x){
+            no();
+        }
+        
+        else
+        {
+            x = 0;
+            for(int i =1;i<n;i++)
+            {
+                if(b[i] == b[i-1])
+                {
+                    yes(); x =1; break;
+                }
+            }
+            
+            if(!x) no();
+        }
+    }
+	return 0;
+}
