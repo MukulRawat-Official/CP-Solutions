@@ -1,0 +1,169 @@
+#include <bits/stdc++.h>
+#define endl "\n"
+#define lli long long int
+#define ll long long
+#define lld long double
+#define ull unsigned long long
+#define set_bit __builtin_popcountll // check no of 1 set bit (x) 
+#define bp_i  __builtin_popcount // used for integer (x)
+#define mp make_pair
+#define edge(x,y) cin>>x>>y;adj[x].push_back(y);adj[y].push_back(x);
+#define dedge(x,y) cin>>x>>y;adj[x].push_back(y);
+#define pq_dec(i) priority_queue<i,vector<i>, greater<i>>
+using namespace std;
+
+
+#ifndef ONLINE_JUDGE
+#define debug(x) cerr << #x <<" "; _print(x); cerr << endl;
+#else
+#define debug(x)
+#endif
+
+
+void _print(ll t) {cerr << t;}
+void _print(int t) {cerr << t;}
+void _print(string t) {cerr << t;}
+void _print(char t) {cerr << t;}
+void _print(lld t) {cerr << t;}
+void _print(double t) {cerr << t;}
+void _print(ull t) {cerr << t;}
+void _print(long t) {cerr << t;}
+
+
+template <class T, class V> void _print(pair <T, V> p);
+template <class T> void _print(vector <T> v);
+template <class T> void _print(set <T> v);
+template <class T, class V> void _print(map <T, V> v);
+template <class T> void _print(unordered_set <T> v);
+template <class T , class V> void _print(unordered_map <T, V> v);
+template <class T> void _print(multiset <T> v);
+template <class T> void _print(priority_queue <T>v);
+template <class T> void _print(priority_queue <T, vector<T>, greater<T>>);
+
+
+template <class T, class V> void _print(pair <T, V> p) {cerr << "{"; _print(p.first); cerr << ","; _print(p.second); cerr << "}";}
+template <class T> void _print(vector <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
+template <class T> void _print(set <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
+template <class T> void _print(multiset <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
+template <class T> void _print(unordered_set <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
+template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i : v) {_print(i); cerr << " ";} cerr << "]";}
+template <class T, class V> void _print(unordered_map <T, V> v) {cerr << "[ "; for (auto i : v) {_print(i); cerr << " ";} cerr << "]";}
+template <class T> void _print(priority_queue <T> c) {cerr << "[ "; priority_queue <T> v = c; while (v.size()) {cerr << v.top() << " "; v.pop();} cerr << "]";}
+template <class T> void _print(priority_queue <T, vector<T>, greater<T>> c) {cerr << "[ "; priority_queue <T, vector<T> , greater<T>> v = c; while (v.size()) {cerr << v.top() << " "; v.pop();} cerr << "]";}
+
+void predefined()
+{
+  ios_base::sync_with_stdio(false); cin.tie(NULL);
+#ifndef ONLINE_JUDGE
+  freopen("error.txt", "w", stderr);
+  freopen("Input.txt", "r", stdin);
+  freopen("output.txt", "w", stdout);
+#endif
+}
+/*
+
+ if tower if of odd length then there is no need to worry as we need to maximize mid element only
+ if tower is of even legnth then we can switch one time in between to even or odd length
+ 
+ eg:-  suppose we choose a 
+ 
+     a b c d 
+     
+     if even length we can choose either c , d one time ...
+
+*/
+
+void solve()
+{
+  ll n;
+  cin>>n;
+
+  vector<ll>arr(n);
+  for(int i =0;i<n;i++)
+    cin>>arr[i];
+  
+  ll ans = 0;
+  if(n%2)
+  {
+    int idx = 1;
+
+    while(idx<n)
+    {
+      ll a = arr[idx] - arr[idx-1] > 0 ? 0 :  1  + arr[idx-1] - arr[idx];
+      ll b = arr[idx] - arr[idx+1] > 0 ? 0 :  1  + arr[idx+1] - arr[idx];
+
+      ans+= max(a,b);
+      idx+=2;
+    }
+
+    cout<<ans<<endl;
+    return;
+  }
+
+  int k = (n-1)/2;
+  vector<ll>l , r;
+
+  for(int idx = 1;idx<n-1;idx+=2)
+  {
+      ll a = arr[idx] - arr[idx-1] > 0 ? 0 :  1  + arr[idx-1] - arr[idx];
+      ll b = arr[idx] - arr[idx+1] > 0 ? 0 :  1  + arr[idx+1] - arr[idx];
+      
+      l.push_back(max(a,b));
+  }
+
+
+  for(int idx = 2;idx<n-1;idx+=2)
+  {
+      ll a = arr[idx] - arr[idx-1] > 0 ? 0 :  1  + arr[idx-1] - arr[idx];
+      ll b = arr[idx] - arr[idx+1] > 0 ? 0 :  1  + arr[idx+1] - arr[idx];
+      
+      r.push_back(max(a,b));
+  }
+
+  // ll a = 0 , b  =0;
+  int  m = l.size();
+  // for(int i=0;i<l.size();i++)
+  // {
+  //   a+= l[i];
+  //   b+= r[i];
+  // }
+  
+  debug(l);
+  debug(r);
+  
+  vector<ll>pl(m) , pr(m);
+
+  pl[0] = l[0];
+  pr[0] = r[0];
+
+  for(int i = 1;i<m;i++)
+  {
+    pl[i] = l[i] + pl[i-1];
+    pr[i] = r[i] + pr[i-1];
+  }
+
+  ans = min(pl[m-1] , pr[m-1]);
+
+  for(int i =0;i<m-1;i++) 
+  {
+    ll a = pl[i] + pr[m-1] - pr[i];
+    ans = min(a,ans);
+  }
+
+  cout<<ans<<endl;
+}
+
+int main()
+{
+  predefined();
+  
+
+  lli t;
+
+  cin >> t;
+
+
+ 
+  while (t--)
+  solve();
+}
