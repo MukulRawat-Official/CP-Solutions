@@ -86,7 +86,13 @@ void predefined()
 #endif
 }
 
+/*
+  for last k-1 elements they must be same  as they can't be deleted 
+  now for remaining element there 
+  must at least one (if target element is  1 )or zero (if target first element is 0).
+  
 
+*/
 void solve()
 {
   ll m , n; cin >> n >> m;
